@@ -3,18 +3,42 @@ requires = ["pdm-pep517>=1.0"]
 build-backend = "pdm.pep517.api"
 
 [project]
-name = "python-template"
+name = "mit-ub-chexpert"
 description = ""
-requires-python = ">=3.11"
+requires-python = ">=3.11,<3.12"
 authors = [
     {name = "Scott Chase Waggener", email = "tidalpaladin@protonmail.com"},
 ]
-dependencies = []
+dependencies = [
+  "numpy",
+  "Pillow",
+  "pandas",
+  "torch>=2.4",
+  "dicom-preprocessing @ git+https://github.com/medcognetics/dicom-preprocessing.git",
+  "mit-ub @ git+https://github.com/TidalPaladin/mit-ub.git@feat/conv-transformer",
+]
+
+
 readme = "README.md"
 license = {text = "Apache"}
 dynamic = ["version"]
 
 [project.optional-dependencies]
+train = [
+    "mit-ub[train] @ git+https://github.com/TidalPaladin/mit-ub.git",
+    "Pillow",
+    "pandas",
+    "pytorch-lightning>=2.4",
+    "torchvision",
+    "torchmetrics",
+    "bitsandbytes>=0.44.1",
+    "jsonargparse[signatures]",
+    "omegaconf",
+    "tqdm-multiprocessing",
+    "jsonargparse[signatures]",
+    "deep-helpers @ git+https://github.com/TidalPaladin/deep-helpers.git",
+    "torch-dicom[datamodule] @ git+https://github.com/medcognetics/torch-dicom.git",
+]
 
 [tool.autoflake]
 remove-all-unused-imports = true
