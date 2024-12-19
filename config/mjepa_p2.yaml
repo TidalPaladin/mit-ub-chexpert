@@ -5,9 +5,10 @@ fit:
     devices: 2
     strategy: "ddp"
     precision: "bf16-mixed"
-    max_steps: 250000
+    max_steps: 100000
     num_sanity_val_steps: 2
-    default_root_dir: /mnt/flash/chexpert
+    val_check_interval: 5000
+    default_root_dir: /mnt/storage/users/chase/chexpert
 
     callbacks:
       - class_path: pytorch_lightning.callbacks.ModelCheckpoint
@@ -23,12 +24,14 @@ fit:
       init_args:
         save_dir: ${fit.trainer.default_root_dir}
         project: chexpert
-        name: "mjepa-p1"
+        name: "mjepa-p2"
 
   model:
-    class_path: mit_ub.tasks.JEPAChexpert
+    class_path: mit_ub_chexpert.tasks.JEPAChexpert
     init_args:
-      backbone: "chexpert-small"
+      backbone: "chexpert-small-adaptive"
+      checkpoint: "/home/chase/last.ckpt"
+      strict_checkpoint: false
 
       jepa_config:
         ema_alpha: 0.98
@@ -46,18 +49,18 @@ fit:
       optimizer_init:
         class_path: bitsandbytes.optim.AdamW8bit
         init_args:
-          lr: 0.0005
+          lr: 0.0001
           weight_decay: 0.05
           betas: [0.85, 0.999]
       lr_interval: "step"
       lr_scheduler_init:
         class_path: deep_helpers.optim.ReciprocalSquareRootLR
         init_args:
-          warmup_steps: 5000
-          cooldown_steps: 50000
-          total_steps: 250000
+          warmup_steps: 10000
+          cooldown_steps: 25000
+          total_steps: ${fit.trainer.max_steps}
           timescale: 10000
-          initial_lr: 0.0001
+          initial_lr: 0.00001
           initial_momentum: 0.95
       parameter_groups:
         - params:
@@ -69,10 +72,10 @@ fit:
           weight_decay: 1.0
 
   data:
-    class_path: mit_ub.data.CheXpertDataModule
+    class_path: mit_ub_chexpert.data.ChexpertDataModule
     init_args:
-      root: /mnt/data/chexpert/lowres/
-      batch_size: 64
+      root: /mnt/preprocessed/chexpert/highres
+      batch_size: 4
       num_workers: 12
       pin_memory: true
 
@@ -83,7 +86,7 @@ fit:
 
             - class_path: torchvision.transforms.v2.RandomResizedCrop
               init_args:
-                size: [512, 512]
+                size: [2048, 2048]
                 scale: [0.8, 1.0]
                 ratio: [0.8, 1.2]
                 antialias: true
@@ -108,5 +111,5 @@ fit:
       val_transforms:
         class_path: torchvision.transforms.v2.Resize
         init_args:
-          size: [512, 512]
+          size: [2048, 2048]
           antialias: true

@@ -46,7 +46,8 @@ class JEPAChexpert(JEPAWithProbe):
         with torch.no_grad():
             if mask.any():
                 for name, metric in (metrics or {}).items():
-                    metric.update(linprobe_probs[mask], linprobe_gt[mask])
+                    if name in {"acc", "auroc"}:
+                        metric.update(linprobe_probs[mask], linprobe_gt[mask])
 
         output = copy(output)
         output["log"]["loss_linprobe"] = linprobe_loss

@@ -5,7 +5,7 @@
 groups = ["default", "quality", "test", "train"]
 strategy = ["cross_platform"]
 lock_version = "4.5.0"
-content_hash = "sha256:414af99aa0b5d860404179429fdc758d069ac55abb3f559eb7606a947524119c"
+content_hash = "sha256:dc13ece85d5a6fe6e8a049cc821f7ea05cfddf69c74d77c5a77057b6fc9c2657"
 
 [[metadata.targets]]
 requires_python = ">=3.11,<3.12"
@@ -315,10 +315,10 @@ files = [
 
 [[package]]
 name = "deep-helpers"
-version = "0.1.dev69"
+version = "0.1.dev71"
 requires_python = ">=3.10,<3.12"
 git = "https://github.com/TidalPaladin/deep-helpers.git"
-revision = "92f25f6818b569920a8c82c198498294d797f373"
+revision = "62528d786c667393208f25fb8606aae72607c62e"
 summary = ""
 dependencies = [
     "einops>=0.7.0",
@@ -759,25 +759,25 @@ files = [
 
 [[package]]
 name = "mit-ub"
-version = "0.1.dev76"
+version = "0.1.dev81"
 requires_python = ">=3.11,<3.12"
 git = "https://github.com/TidalPaladin/mit-ub.git"
-ref = "feat/conv-transformer"
-revision = "9d5437181739f8a1bc913f9203b89799a8dd882e"
+revision = "a7e6004f92384d9f8cc2af8cd347e45117ca0af3"
 summary = ""
 dependencies = [
     "einops",
     "registry @ git+https://github.com/TidalPaladin/callable-registry.git",
     "torch",
+    "torchvision",
 ]
 
 [[package]]
 name = "mit-ub"
-version = "0.1.dev74"
+version = "0.1.dev81"
 extras = ["train"]
 requires_python = ">=3.11,<3.12"
 git = "https://github.com/TidalPaladin/mit-ub.git"
-revision = "c52ad49316b03b24231e1cc3f78040988e2364c7"
+revision = "a7e6004f92384d9f8cc2af8cd347e45117ca0af3"
 summary = ""
 dependencies = [
     "Pillow",
@@ -788,7 +788,6 @@ dependencies = [
     "pandas",
     "pytorch-lightning>=2.4",
     "torchmetrics",
-    "torchvision",
 ]
 
 [[package]]

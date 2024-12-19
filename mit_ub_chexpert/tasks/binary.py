@@ -7,9 +7,10 @@ import torchmetrics as tm
 from deep_helpers.structs import State
 from deep_helpers.tasks import Task
 from einops.layers.torch import Rearrange
-from mit_ub.model import BACKBONES, ViT
 from torch import Tensor
 from torchvision.ops import sigmoid_focal_loss
+
+from mit_ub_chexpert.model import BACKBONES, ViT
 
 
 class BinaryChexpert(Task):

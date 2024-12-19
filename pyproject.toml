@@ -15,7 +15,7 @@ dependencies = [
   "pandas",
   "torch>=2.4",
   "dicom-preprocessing @ git+https://github.com/medcognetics/dicom-preprocessing.git",
-  "mit-ub @ git+https://github.com/TidalPaladin/mit-ub.git@feat/conv-transformer",
+  "mit-ub @ git+https://github.com/TidalPaladin/mit-ub.git",
 ]
 
 
